@@ -22,6 +22,7 @@ func main() {
 
 					type Query {
 						post(slug: String!, id: String!): Post!
+						posts(): [Post!]
 					}
 	`
 
