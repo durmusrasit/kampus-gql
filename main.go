@@ -1,16 +1,18 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/durmusrasit/kampus-gql/loader"
 	"github.com/durmusrasit/kampus-gql/query"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 )
 
 func main() {
-	s := `
+	/*s := `
 					schema {
 						query: Query
 						mutation: Mutation
@@ -33,7 +35,12 @@ func main() {
 					type Mutation {
 						createPost(title: String!, url: String!, content: String, userId: String!): Post
 					}
-	`
+	`*/
+	s, err := loader.ReadSchema("./schema.graphql")
+	if err != nil {
+		fmt.Println("An error occurred while reading schema. Error:", err)
+		return
+	}
 
 	schema := graphql.MustParseSchema(s, &query.Query{})
 	http.Handle("/graphql", &relay.Handler{Schema: schema})
