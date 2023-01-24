@@ -3,10 +3,32 @@ package query
 import (
 	"context"
 	"errors"
+	"fmt"
+	"strings"
 
 	"github.com/durmusrasit/kampus-gql/loader"
 	"github.com/durmusrasit/kampus-gql/models"
 )
+
+func (q *Query) CreatePost(ctx context.Context, args *struct {
+	Title   string
+	Url     string
+	Content *string
+	UserId  string
+}) (*postResolver, error) {
+	post := &models.Post{
+		ID:      "1002",
+		Title:   args.Title,
+		Url:     args.Url,
+		Content: *args.Content,
+		Slug:    strings.ToLower(args.Title),
+		UserID:  args.UserId,
+	}
+
+	fmt.Println("post", post)
+
+	return &postResolver{post}, nil
+}
 
 func (q *Query) Posts(ctx context.Context) (*[]*postResolver, error) {
 	posts, err := loader.ReadPosts()

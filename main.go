@@ -11,6 +11,11 @@ import (
 
 func main() {
 	s := `
+					schema {
+						query: Query
+						mutation: Mutation
+					}
+
 					type Post {
 						ID: String!
 						Title: String!
@@ -24,9 +29,13 @@ func main() {
 						post(slug: String!, id: String!): Post!
 						posts(): [Post!]
 					}
+
+					type Mutation {
+						createPost(title: String!, url: String!, content: String, userId: String!): Post
+					}
 	`
 
 	schema := graphql.MustParseSchema(s, &query.Query{})
-	http.Handle("/query", &relay.Handler{Schema: schema})
+	http.Handle("/graphql", &relay.Handler{Schema: schema})
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
