@@ -1,9 +1,9 @@
 package loader
 
-import "io/ioutil"
+import "os"
 
 func ReadSchema(path string) (string, error) {
-	byt, err := ioutil.ReadFile(path)
+	byt, err := os.ReadFile(path)
 	if err != nil {
 		return "", err
 	}
