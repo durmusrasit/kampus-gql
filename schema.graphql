@@ -3,6 +3,13 @@ schema {
   mutation: Mutation
 }
 
+input PostInput {
+  title: String!
+  url: String!
+  content: String
+  userId: String!
+}
+
 type Post {
   ID: String!
   Title: String!
@@ -18,5 +25,5 @@ type Query {
 }
 
 type Mutation {
-  createPost(title: String!, url: String!, content: String, userId: String!): Post
+  createPost(input: PostInput): Post
 }

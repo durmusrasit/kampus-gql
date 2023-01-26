@@ -3,27 +3,34 @@ package query
 import (
 	"context"
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/durmusrasit/kampus-gql/models"
 )
 
-func (q *Query) CreatePost(ctx context.Context, args *struct {
+type PostInput struct {
 	Title   string
 	Url     string
 	Content *string
 	UserId  string
+}
+
+func (q *Query) CreatePost(ctx context.Context, args *struct {
+	Input *PostInput
 }) (*postResolver, error) {
+
 	post := &models.Post{
-		Title:   args.Title,
-		Url:     args.Url,
-		Content: *args.Content,
-		Slug:    strings.ToLower(args.Title),
-		UserID:  args.UserId,
+		Title:   args.Input.Title,
+		Url:     args.Input.Url,
+		Content: *args.Input.Content,
+		Slug:    strings.ToLower(args.Input.Title),
+		UserID:  args.Input.UserId,
 	}
 
-	fmt.Println("post", post)
+	result := q.Db.DB.Create(&post)
+	if result.Error != nil {
+		return nil, result.Error
+	}
 
 	return &postResolver{post}, nil
 }
