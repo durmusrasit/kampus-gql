@@ -16,7 +16,6 @@ func (q *Query) CreatePost(ctx context.Context, args *struct {
 	UserId  string
 }) (*postResolver, error) {
 	post := &models.Post{
-		ID:      "1002",
 		Title:   args.Title,
 		Url:     args.Url,
 		Content: *args.Content,
@@ -65,7 +64,7 @@ func (q *Query) GetPost(ctx context.Context, Slug string, Id string) (*models.Po
 	}
 
 	for _, p := range posts {
-		if p.ID == Id && p.Slug == Slug {
+		if p.ID.String() == Id && p.Slug == Slug {
 			return p, nil
 		}
 	}

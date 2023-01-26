@@ -10,7 +10,7 @@ type postResolver struct {
 
 //func (r *postResolver) ID() graphql.ID { return graphql.ID(r.post.ID) }
 
-func (r *postResolver) ID() string { return r.post.ID }
+func (r *postResolver) ID() string { return r.post.ID.String() }
 
 func (r *postResolver) Title() string { return r.post.Title }
 
