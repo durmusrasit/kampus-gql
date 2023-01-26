@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/durmusrasit/kampus-gql/loader"
 	"github.com/durmusrasit/kampus-gql/models"
 )
 
@@ -31,7 +30,7 @@ func (q *Query) CreatePost(ctx context.Context, args *struct {
 }
 
 func (q *Query) Posts(ctx context.Context) (*[]*postResolver, error) {
-	posts, err := loader.ReadPosts()
+	posts, err := q.Db.ReadPosts()
 
 	if err != nil {
 		return nil, errors.New("An error occurred while reading posts" + err.Error())
@@ -59,7 +58,7 @@ func (q *Query) Post(ctx context.Context, args struct {
 }
 
 func (q *Query) GetPost(ctx context.Context, Slug string, Id string) (*models.Post, error) {
-	posts, err := loader.ReadPosts()
+	posts, err := q.Db.ReadPosts()
 
 	if err != nil {
 		return nil, errors.New("An error occurred while reading posts" + err.Error())
