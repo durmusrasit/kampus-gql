@@ -5,8 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/durmusrasit/kampus-gql/db/postgresql"
-	"github.com/durmusrasit/kampus-gql/loader"
 	"github.com/durmusrasit/kampus-gql/query"
 	"github.com/durmusrasit/kampus-gql/schema"
 	"github.com/graph-gophers/graphql-go"
@@ -21,19 +19,9 @@ func main() {
 		return
 	}
 
-	pgConfig := postgresql.PostgreSQLConfig{Host: "localhost", Port: 5432, Username: "postgres", Password: "yutubar123", DbName: "pano_db"}
-	pgClient, pgError := postgresql.NewPostgreSQLConnect(pgConfig)
-	if pgError != nil {
-		fmt.Println("An error occurred while connect postgresql. Error:", pgError)
-		return
-	}
+	//panoapiClient := pano_api.NewPanoAPIProtobufClient("http://localhost:8080", &http.Client{})
 
-	db, err := loader.NewDB(pgClient)
-	if err != nil {
-		fmt.Println("An error occurred while load db. Error:", err)
-	}
-
-	schema := graphql.MustParseSchema(s, &query.Query{Db: db}, graphql.UseStringDescriptions())
+	schema := graphql.MustParseSchema(s, &query.Query{ /*PanoAPI: panoapiClient*/ }, graphql.UseStringDescriptions())
 	http.Handle("/graphql", &relay.Handler{Schema: schema})
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

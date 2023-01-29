@@ -1,7 +1,7 @@
 package query
 
-import "github.com/durmusrasit/kampus-gql/loader"
+import "github.com/durmusrasit/kampus-gql/service/panoapi"
 
 type Query struct {
-	Db *loader.DB
+	PanoAPI *panoapi.PanoAPI
 }
