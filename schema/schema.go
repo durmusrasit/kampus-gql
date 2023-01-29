@@ -1,4 +1,4 @@
-package loader
+package schema
 
 import "os"
 

@@ -8,13 +8,14 @@ import (
 	"github.com/durmusrasit/kampus-gql/db/postgresql"
 	"github.com/durmusrasit/kampus-gql/loader"
 	"github.com/durmusrasit/kampus-gql/query"
+	"github.com/durmusrasit/kampus-gql/schema"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 )
 
 func main() {
 
-	s, err := loader.ReadSchema("./schema.graphql")
+	s, err := schema.ReadSchema("./schema.graphql")
 	if err != nil {
 		fmt.Println("An error occurred while reading schema. Error:", err)
 		return
