@@ -16,7 +16,7 @@ input GetPostInput {
 }
 
 type Post {
-  ID: String!
+  ID: ID!
   title: String!
   url: String!
   content: String
