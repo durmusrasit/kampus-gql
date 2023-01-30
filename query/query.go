@@ -1,7 +1,11 @@
 package query
 
-import "github.com/durmusrasit/kampus-gql/service/panoapi"
+import pano_api "github.com/durmusrasit/kampus-gql/rpc/pano-api"
+
+type Clients struct {
+	PanoAPI pano_api.PanoAPI
+}
 
 type Query struct {
-	PanoAPI *panoapi.PanoAPI
+	Clients *Clients
 }

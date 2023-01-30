@@ -9,6 +9,8 @@ import (
 	"github.com/durmusrasit/kampus-gql/schema"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+
+	pano_api "github.com/durmusrasit/kampus-gql/rpc/pano-api"
 )
 
 func main() {
@@ -19,11 +21,15 @@ func main() {
 		return
 	}
 
-	//panoapiClient := pano_api.NewPanoAPIProtobufClient("http://localhost:8080", &http.Client{})
+	panoapiClient := pano_api.NewPanoAPIProtobufClient("http://localhost:8080", &http.Client{})
 
-	schema := graphql.MustParseSchema(s, &query.Query{ /*PanoAPI: panoapiClient*/ }, graphql.UseStringDescriptions())
+	clients := query.Clients{
+		PanoAPI: panoapiClient,
+	}
+
+	schema := graphql.MustParseSchema(s, &query.Query{Clients: &clients}, graphql.UseStringDescriptions())
 	http.Handle("/graphql", &relay.Handler{Schema: schema})
 
-	fmt.Println("Listening to :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Listening to :9090")
+	log.Fatal(http.ListenAndServe(":9090", nil))
 }
