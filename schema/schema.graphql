@@ -3,27 +3,32 @@ schema {
   mutation: Mutation
 }
 
-input PostInput {
+input CreatePostInput {
   title: String!
   url: String!
   content: String
-  userId: String!
+  userID: String!
+}
+
+input GetPostInput {
+  slug: String!
+  id: String!
 }
 
 type Post {
   ID: String!
-  Title: String!
-  Url: String!
-  Content: String
-  Slug: String!
-  UserID: String!
+  title: String!
+  url: String!
+  content: String
+  slug: String!
+  userID: String!
 }
 
 type Query {
-  post(slug: String!, id: String!): Post!
+  post(input: GetPostInput): Post!
   posts(): [Post!]
 }
 
 type Mutation {
-  createPost(input: PostInput): Post
+  createPost(input: CreatePostInput): Post
 }
