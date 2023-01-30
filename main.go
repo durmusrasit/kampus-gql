@@ -13,7 +13,7 @@ import (
 
 func main() {
 
-	s, err := schema.ReadSchema("./schema.graphql")
+	s, err := schema.ReadSchema("./schema/schema.graphql")
 	if err != nil {
 		fmt.Println("An error occurred while reading schema. Error:", err)
 		return
@@ -23,5 +23,7 @@ func main() {
 
 	schema := graphql.MustParseSchema(s, &query.Query{ /*PanoAPI: panoapiClient*/ }, graphql.UseStringDescriptions())
 	http.Handle("/graphql", &relay.Handler{Schema: schema})
+
+	fmt.Println("Listening to :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
