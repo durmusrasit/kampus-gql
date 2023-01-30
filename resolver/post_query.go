@@ -1,4 +1,4 @@
-package query
+package resolver
 
 import (
 	"context"
@@ -17,7 +17,7 @@ type CreatePostArgs struct {
 	Input *CreatePostInput
 }
 
-func (q *Query) CreatePost(ctx context.Context, args *CreatePostArgs) (*postResolver, error) {
+func (q *Resolver) CreatePost(ctx context.Context, args *CreatePostArgs) (*postResolver, error) {
 	createdPost, err := q.Clients.PanoAPI.CreatePost(ctx, &pano_api.CreatePostRequest{Title: args.Input.Title, Url: args.Input.Url, Content: *args.Input.Content, UserId: args.Input.UserId})
 
 	if err != nil {
@@ -36,7 +36,7 @@ type GetPostArgs struct {
 	Input *GetPostInput
 }
 
-func (q *Query) Post(ctx context.Context, args *GetPostArgs) (*postResolver, error) {
+func (q *Resolver) Post(ctx context.Context, args *GetPostArgs) (*postResolver, error) {
 	response, err := q.Clients.PanoAPI.GetBatchPosts(ctx, &pano_api.GetBatchPostsRequest{Ids: []string{args.Input.Id}})
 
 	if err != nil {
@@ -46,7 +46,7 @@ func (q *Query) Post(ctx context.Context, args *GetPostArgs) (*postResolver, err
 	return &postResolver{response.Posts[0]}, nil
 }
 
-func (q *Query) Posts(ctx context.Context) (*[]*postResolver, error) {
+func (q *Resolver) Posts(ctx context.Context) (*[]*postResolver, error) {
 	response, err := q.Clients.PanoAPI.GetPosts(ctx, &pano_api.GetPostsRequest{})
 
 	if err != nil {
