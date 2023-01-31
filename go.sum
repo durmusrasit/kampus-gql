@@ -1,4 +1,6 @@
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/durmusrasit/pano-api v0.0.0-20230110230814-752d6a367a76 h1:R9BmAh4VPRVptWes2XEGtpxkbDfU7JdH8FfGmRo/RCk=
+github.com/durmusrasit/pano-api v0.0.0-20230110230814-752d6a367a76/go.mod h1:R0Ug5UI+ddSbQo9Zk3EVJQKBI5QY1vFNa8cIVyD8Hfc=
 github.com/go-logr/logr v1.2.2/go.mod h1:jdQByPbusPIv2/zmleS9BjJVeZ6kBagPoEUsqbVz/1A=
 github.com/go-logr/logr v1.2.3/go.mod h1:jdQByPbusPIv2/zmleS9BjJVeZ6kBagPoEUsqbVz/1A=
 github.com/go-logr/stdr v1.2.2/go.mod h1:mMo/vtBO5dYbehREoey6XUKy/eSumjCCveDpRre4VKE=

@@ -1,7 +1,7 @@
 package resolver
 
 import (
-	pano_api "github.com/durmusrasit/kampus-gql/rpc/pano-api"
+	pano_api "github.com/durmusrasit/pano-api/rpc/pano-api"
 	"github.com/graph-gophers/graphql-go"
 )
 

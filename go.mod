@@ -10,6 +10,7 @@ require (
 )
 
 require (
+	github.com/durmusrasit/pano-api v0.0.0-20230110230814-752d6a367a76 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )

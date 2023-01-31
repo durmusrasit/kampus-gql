@@ -3,7 +3,7 @@ package resolver
 import (
 	"context"
 
-	pano_api "github.com/durmusrasit/kampus-gql/rpc/pano-api"
+	pano_api "github.com/durmusrasit/pano-api/rpc/pano-api"
 )
 
 type CreatePostInput struct {
