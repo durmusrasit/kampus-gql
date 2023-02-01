@@ -10,7 +10,7 @@ import (
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 
-	pano_api "github.com/durmusrasit/pano-api/rpc/pano-api"
+	pano_api "github.com/kamp-us/pano-api/rpc/pano-api"
 )
 
 func main() {
