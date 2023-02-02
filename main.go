@@ -5,44 +5,31 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/durmusrasit/kampus-gql/loader"
-	"github.com/durmusrasit/kampus-gql/query"
+	"github.com/durmusrasit/kampus-gql/resolver"
+	"github.com/durmusrasit/kampus-gql/schema"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+
+	pano_api "github.com/kamp-us/pano-api/rpc/pano-api"
 )
 
 func main() {
-	/*s := `
-					schema {
-						query: Query
-						mutation: Mutation
-					}
 
-					type Post {
-						ID: String!
-						Title: String!
-						Url: String!
-						Content: String
-						Slug: String!
-						UserID: String!
-					}
-
-					type Query {
-						post(slug: String!, id: String!): Post!
-						posts(): [Post!]
-					}
-
-					type Mutation {
-						createPost(title: String!, url: String!, content: String, userId: String!): Post
-					}
-	`*/
-	s, err := loader.ReadSchema("./schema.graphql")
+	s, err := schema.ReadSchema("./schema/schema.graphql")
 	if err != nil {
 		fmt.Println("An error occurred while reading schema. Error:", err)
 		return
 	}
 
-	schema := graphql.MustParseSchema(s, &query.Query{})
+	panoapiClient := pano_api.NewPanoAPIProtobufClient("http://localhost:8080", &http.Client{})
+
+	clients := resolver.Clients{
+		PanoAPI: panoapiClient,
+	}
+
+	schema := graphql.MustParseSchema(s, &resolver.Resolver{Clients: &clients}, graphql.UseStringDescriptions())
 	http.Handle("/graphql", &relay.Handler{Schema: schema})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	fmt.Println("Listening to :9090")
+	log.Fatal(http.ListenAndServe(":9090", nil))
 }
